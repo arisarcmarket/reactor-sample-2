@@ -19,10 +19,10 @@ export default function Home() {
     const updatedMessages = [...messages, message];
 
 
-    console.log('updatedMessages', updatedMessages)
+    
     setMessages(updatedMessages);
     setLoading(true);
-
+    console.log('--->??????')
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: {

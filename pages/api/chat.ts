@@ -7,12 +7,13 @@ export const config = {
 
 const handler = async (req: Request): Promise<Response> => {
   try {
-    const { messages } = (await req.json()) as {
-      messages: Message[];
-    };
-
-
-
+ 
+    const { messages } = await req.json();
+    
+    if (!messages || !Array.isArray(messages)) {
+      return new Response('Invalid messages format', { status: 400 });
+    }
+    console.log('cjat', messages)
     const charLimit = 12000;
     let charCount = 0;
     let messagesToSend = [];
@@ -27,9 +28,16 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
    
+    console.log('messagesToSend', messagesToSend)
     const stream = await ReactorStream(messagesToSend);
 
-    return new Response(stream);
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
   } catch (error) {
     console.error(error);
     return new Response("Error", { status: 500 });
