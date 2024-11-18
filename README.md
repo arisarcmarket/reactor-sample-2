@@ -23,10 +23,6 @@ Tweak the assistant prompt in `pages/index.tsx`.
 
 **1. Clone Repo**
 
-```bash
-git clone https://github.com/mckaywrigley/chatbot-ui-lite.git
-```
-
 **2. Install Dependencies**
 
 ```bash
